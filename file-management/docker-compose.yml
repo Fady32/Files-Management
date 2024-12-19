@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  # Spring Boot Application Service
+  file-management-service:
+    build:
+      context: .
+      dockerfile: execute.dockerfile
+    container_name: file-management-service
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/file_management_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  # PostgreSQL Database Service
+  db:
+    image: postgres:13.8
+   # platform: linux/amd64  # Add this line to force using Linux-based image
+    container_name: postgres-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=file_management_db
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+    driver: local
