@@ -113,4 +113,4 @@ curl -X POST http://localhost:8080/api/items/create-space \
 
 #### ERD Diagram
 
-![ERD%20diagram.png](src/main/resources/static/ERD%20diagram.png)
+![ERD%20diagram.png](file-management/src/main/resources/static/ERD%20diagram.png)
