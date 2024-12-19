@@ -1,0 +1,55 @@
+spring:
+  # General Spring Boot Settings
+  application:
+    name: file-management-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/file_management_db
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      connection-timeout: 30000
+      idle-timeout: 30000
+      max-lifetime: 60000
+
+
+  # Hibernate/JPA Configuration
+  jpa:
+    hibernate:
+      ddl-auto: update  # options: none, update, create, create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  # Swagger/OpenAPI 3.0 Config (Optional, this is useful if you want to configure the Swagger documentation)
+#  swagger:
+#    api-docs:
+#      path: /v3/api-docs
+#    ui:
+#      path: /swagger-ui/
+#      enabled: true
+
+
+  # Logging Configuration
+  logging:
+    level:
+      org.springframework: INFO
+      com.filemanagement: INFO
+  sql:
+    init:
+      mode: always
+
+# Profiles Configuration (Development, Production, etc.)
+spring.profiles.active: dev
+
+server:
+  port: 8080
+
+jwt:
+  signing:
+    key: 12312
+  token:
+    validity: 86400000
